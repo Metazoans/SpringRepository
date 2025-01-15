@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.board.service.BoardDTO;
+import com.example.demo.board.service.BoardSearchDTO;
 import com.example.demo.board.service.BoardService;
+import com.example.demo.common.Paging;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,10 +26,16 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("/list")	
-	public void list(Model model) {
-		
+	public void list(Model model, BoardSearchDTO searchDTO, Paging paging) {
 		log.info("list");
-		model.addAttribute("list", service.getList());	//html tr 반복 <tr th:each=" : ${list 같아야함}">
+		
+		// 페이징처리
+		paging.setTotalRecord(service.getCount(searchDTO));
+		
+		searchDTO.setStart(paging.getFirst());
+		searchDTO.setEnd(paging.getLast());
+		
+		model.addAttribute("list", service.getList(searchDTO));	//html tr 반복 <tr th:each=" : ${list 같아야함}">
 	}
 	
 	

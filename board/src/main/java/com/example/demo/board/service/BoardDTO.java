@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class BoardDTO {
 	private Long bno; // list.html bno
 	
-	@NotBlank
+	@NotBlank(message = "이름입력")
 	private String title;
 	@NotBlank
 	private String content;

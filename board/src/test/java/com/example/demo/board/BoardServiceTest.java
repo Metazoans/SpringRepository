@@ -20,23 +20,37 @@ public class BoardServiceTest {
 	
 	@Test
 	@DisplayName("게시글 수정")
-	public void update() {
-		// given
-		// new BoardDTO == builder
-		long bno = 8L;
-		String title = "서비스 수정";
-		BoardDTO board = BoardDTO.builder()
-			.bno(bno)
-			.title(title)
-			.content("수정된 내용")
-			.writer("user00")
-			.build();
+	  public void testUpdate() {
+	    //given
+	    // 실행전 존재하는 번호인지 확인할 것
+	    BoardDTO board = BoardDTO.builder()
+	          .bno(5L)
+	          .title("수정된 제목5")
+	          .content("수정된 내용")
+	          .writer("user00")
+	          .build();
+
+	    //when
+	    boolean result = boardService.modify(board);
+
+	    //then	  
+	    assertThat(result).isEqualTo(true);
+	  }
+	
+	@Test
+	@DisplayName("게시글 상세조회")
+	public void testRead() {
+		//given
+	    long bno = 5L;
+
+	    //when
+	    BoardDTO board = boardService.get(bno);
+
+	    //then
+	    log.info(board.toString());
+	    assertThat(board).isNotNull();
 		
-		// when
-		boolean result = boardService.modify(board);
 		
-		// then
-		assertThat(result).isEqualTo(true);
 	}
 
 }

@@ -48,19 +48,57 @@ values(
 <!-- getList : 전체조회 -->
 
 <select id="getList" resultType="BoardDTO">
-  SELECT bno,
-         title,
-         content,
-         writer,
-         regdate
+SELECT *
+FROM (
+  SELECT /*+index_desc(TBL_BOARD PK_BOARD)*/
+         ROWNUM RN,
+         BNO,
+         TITLE,
+         WRITER,
+         REGDATE
     FROM tbl_board
   <![CDATA[
-   WHERE bno > 0
+   WHERE ROWNUM <= #{end}
   ]]>
+  <include refid="criteria"></include>
+) WHERE RN >= #{start}
 </select>
 
+<!-- 카운트 -->
+<select id="getCount" resultType="int">
+SELECT COUNT(*)
+FROM TBL_BOARD
+<where>
+  <include refid="criteria"></include>
+</where>
+</select>
 
-
+<sql id="criteria">
+  <if test="keyword != null and !keyword.equals('')">
+    <trim prefix="and (" suffix=")" prefixOverrides="or">
+      <foreach item="type" collection="typeArr">
+        <trim prefix="or">
+          <choose>
+            <when test=' type == "T" '>
+              TITLE LIKE '%' || #{keyword} || '%'
+            </when>
+            <when test=" type == 'C'.toString() ">
+              CONTENT LIKE '%' || #{keyword} || '%'
+            </when>
+            <when test=" type == 'W'.toString() ">
+              WRITER LIKE '%' || #{keyword} || '%'
+            </when>
+          </choose>
+        </trim>
+        <!-- 
+        <if test="type == 'T'">
+          AND TITLE LIKE '%' || #{keyword} || '%'
+        </if>
+         -->
+      </foreach>
+    </trim>
+  </if>
+</sql>
 
 
 </mapper>
