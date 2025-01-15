@@ -13,34 +13,36 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
-
-	// mapper 여러개 -> final 붙이고 @RequiredArgsConstructor => 생성자 추가
-	// mapper 한개 -> final 제외 @AllArgsConstructor
+	
+	
 	private final BoardMapper boardMapper;
 	
-	@Override
+	@Override	
 	public void register(BoardDTO board) {
 		boardMapper.insert(board);
+		
 	}
 
 	@Override
-	public boolean modify(BoardDTO board) {
+	public boolean modify(BoardDTO board) {		
 		return boardMapper.update(board) == 1 ? true : false;
 	}
 
 	@Override
-	public boolean remove(Long bno) {
+	public boolean remove(Long bno) {		
 		return boardMapper.delete(bno) == 1 ? true : false;
 	}
 
 	@Override
-	public BoardDTO get(Long bno) {
+	public BoardDTO get(Long bno) {		
 		return boardMapper.read(bno);
 	}
 
 	@Override
-	public List<BoardDTO> getList() {
+	public List<BoardDTO> getList() {		
 		return boardMapper.getList();
 	}
-
+	
+	
+	
 }

@@ -9,5 +9,6 @@ public interface BoardMapper {
 	int update(BoardDTO boardDTO);
 	int delete(Long bno);
 	BoardDTO read(Long bno);
-	List<BoardDTO> getList();
+	List<BoardDTO>getList();	
+
 }
