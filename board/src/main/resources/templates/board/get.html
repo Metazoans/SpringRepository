@@ -10,14 +10,34 @@
 	const bno = [[${board.bno}]];
 	window.addEventListener("DOMContentLoaded", function() {
 		getReply();
+		delReply();
 	});
+	
+	// 댓글 삭제 이벤트
+	function delReply() {
+		document.querySelector('.replys').addEventListener("click", function () {
+			if(event.target.classList.contains("btnReplyDel")) {
+				// 버튼을 포함하는 부모태그
+				const div = event.target.closest(".row");
+				// 삭제할 댓글 번호
+				const rno = event.target.dataset.rno;
+				// 서버 삭제 요청
+				const url = `/replies/${rno}`;
+				fetch(url, {method: "delete"})
+				.then(result => result.text())
+				.then(result => div.remove())
+			}
+		})
+	}
+	// 댓글 삭제 결과 처리
+	
 	
 	// 댓글 가져오기
 	function getReply() {
 		const url = `/replies/pages/${bno}/1`;
 		fetch(url)
 		.then(result => result.json())
-		.then(result=>getReplyProc(result))
+		.then(result => getReplyProc(result))
 	}
 	// 댓글 결과 처리
 	function getReplyProc(result) {
@@ -25,8 +45,15 @@
 		
 		result.list.forEach(item => {
 			const html = `<div class="row">
-							  <div class="col-8">${item.reply}</div>
+							  <div class="col-6">${item.reply}</div>
 							  <div class="col-3">${item.replyer}</div>
+							  <div class="col-3">
+							  	<button type="button"
+							  	        data-rno="${item.rno}"
+							  	        class="btn btn-danger btnReplyDel">
+							  		삭제
+							  	</button>
+							  </div>
 						  </div>`;
 			replys.insertAdjacentHTML("beforeend", html);
 		});
@@ -62,7 +89,7 @@
 	<button th:onclick="|location.href='remove?bno=${board.bno}'|">삭제</button>
 	
 	<div class="card mt-4">
-		<div class="card-head">댓글</div>
+		<div class="card-header">댓글</div>
 		<div class="card-body replys"></div>
 	</div>
 </div>

@@ -8,10 +8,10 @@ import com.example.demo.board.service.ReplyDTO;
 import com.example.demo.board.service.ReplySearchDTO;
 
 public interface ReplyMapper {
-	int insert(ReplyDTO reply);
-	int update(ReplyDTO reply);
-	int delete(Long rno);
-	ReplyDTO read(Long rno);
-	List<ReplyDTO> getList(@Param("cri") ReplySearchDTO cri, @Param("bno") Long bno);	
-	int getCountByBno(Long bno);
+	public int insert(ReplyDTO reply);
+	public int update(ReplyDTO reply);
+	public int delete(Long rno);
+	public ReplyDTO read(Long rno);
+	public List<ReplyDTO> getList(@Param("cri") ReplySearchDTO cri, @Param("bno") Long bno);	
+	public int getCountByBno(Long bno);
 }

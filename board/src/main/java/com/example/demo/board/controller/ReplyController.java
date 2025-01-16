@@ -40,6 +40,7 @@ public class ReplyController {
 	}
 	
 	// 삭제처리
+	// localhost:81/replies/6
 	@DeleteMapping("/{rno}")
 	public String remove(@PathVariable(name="rno") Long rno) {
 		service.remove(rno);
