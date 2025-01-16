@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/layout}">
 <head>
 <meta charset="utf-8">
 <link
@@ -8,9 +8,31 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 <title>list.html</title>
-</head>
-<body>
 
+	<script th:inline="javascript">
+		const result = [[${result}]]
+		if(result){		
+			alert("등록완료");
+		}
+		
+		// head에 script를 넣었는 경우 DOM 로딩된 후 함수 집어넣기
+		window.addEventListener("DOMContentLoaded", function() {
+			btnRegister.addEventListener("click", ()=>{
+				location.href="/board/register";
+			})
+		});
+		
+		function gopage(p) {
+			searchForm.page.value = p;
+			searchForm.submit();
+			/* location.href = "list?page=" + p; */
+		}
+	</script>
+
+</head>
+
+<!-- layout:fragment="content"를 body 태그에 넣고 script를 body에 넣어도 됨 -->
+<body layout:fragment="content">
 	<div class="container">
 		<h3>게시글</h3>
 		<div class="panel-heading">
@@ -93,21 +115,5 @@
 		<!-- 페이징 종료 -->
 	</div>
 	
-	<script th:inline="javascript">
-	const result = [[${result}]]
-	if(result){		
-	alert("등록완료");
-	}
-	
-	btnRegister.addEventListener("click", ()=>{
-		location.href="/board/register";
-	})
-	
-	function gopage(p) {
-		searchForm.page.value = p;
-		searchForm.submit();
-		/* location.href = "list?page=" + p; */
-	}
-</script>
 </body>
 </html>
