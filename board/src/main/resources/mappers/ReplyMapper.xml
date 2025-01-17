@@ -22,15 +22,21 @@ values(
 <update id="update">
   UPDATE tbl_reply
      SET reply = #{reply},
-         replyer = #{replyer}
+         updateDate = sysdate
   WHERE rno = #{rno}
 </update>
 
 <!-- delete: 삭제 -->
 <delete id="delete">
-  DELETE tbl_reply
+  DELETE from tbl_reply
    WHERE rno = #{rno}
 </delete>
+
+<delete id="deleteByBno">
+  DELETE from tbl_reply
+   WHERE bno = #{bno}
+</delete>
+
 
 <!-- read: 단건조회  -->
 <select id="read" resultType="ReplyDTO">
@@ -44,7 +50,11 @@ values(
 
 <!-- getList : 전체조회 -->
 <select id="getList" resultType="ReplyDTO">
-  SELECT rno,
+SELECT *
+FROM (
+  SELECT /*+index_desc(tbl_reply PK_reply)*/
+         ROWNUM rn,
+         rno,
          bno,
          reply,
          replyer,
@@ -53,15 +63,16 @@ values(
     FROM tbl_reply
   WHERE bno = #{bno}
     and rno > 0
+    and ROWNUM <![CDATA[ <= ]]> #{cri.end}
+)
+WHERE rn >= #{cri.start}
 </select>
 
 <!-- 카운트 -->
 <select id="getCountByBno" resultType="int">
-<![CDATA[
 SELECT COUNT(rno)
 FROM tbl_reply
 WHERE bno = #{bno}
-]]>
 </select>
 
 </mapper>

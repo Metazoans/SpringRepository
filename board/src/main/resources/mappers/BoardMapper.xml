@@ -30,7 +30,7 @@ values(
 
 <!-- delete: 삭제 -->
 <delete id="delete">
-  DELETE tbl_board
+  DELETE from tbl_board
    WHERE bno = #{bno}
 </delete>
 
@@ -40,13 +40,13 @@ values(
          title,
          content,
          writer,
-         regdate
+         regdate,
+         replycnt
     FROM tbl_board
    WHERE bno = #{bno}
 </select>
 
 <!-- getList : 전체조회 -->
-
 <select id="getList" resultType="BoardDTO">
 SELECT *
 FROM (
@@ -55,7 +55,8 @@ FROM (
          BNO,
          TITLE,
          WRITER,
-         REGDATE
+         REGDATE,
+         replycnt
     FROM tbl_board
   <![CDATA[
    WHERE ROWNUM <= #{end}
@@ -100,5 +101,10 @@ FROM TBL_BOARD
   </if>
 </sql>
 
+<update id="updateReplyCnt">
+update tbl_board
+set replycnt = replycnt + #{amount}
+where bno = #{bno}
+</update>
 
 </mapper>

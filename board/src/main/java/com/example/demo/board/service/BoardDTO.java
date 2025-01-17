@@ -25,6 +25,8 @@ public class BoardDTO {
 	
 	private Date regdate;
 	
+	private int replycnt;
+	
 //	@Pattern("0\\d{3,4}-")
 	
 	

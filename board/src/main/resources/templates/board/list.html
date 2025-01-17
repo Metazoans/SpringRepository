@@ -80,9 +80,10 @@
 				<tr th:each="board : ${list}">
 					<td th:text="${board.bno}">1</td>
 					<!-- BoardDTO -->
-					<td th:text="${board.title}"
-						th:onclick="|location.href='get?bno=${board.bno}'|">제목</td>
-					<td th:text="${board.content}">내용</td>
+					<!-- <td th:onclick="|location.href='get?bno=${board.bno}'|">[[${board.title}]] [ [[${board.replycnt}]] ]</td> -->
+					<td th:text="|${board.title} [${board.replycnt}]|"
+					    th:onclick="|location.href='get?bno=${board.bno}'|">제목[0]</td>
+					<!-- <td th:text="${board.content}">내용</td> -->
 					<td th:text="${board.writer}">홍길동</td>
 					<td>2025/01/14</td>
 				</tr>

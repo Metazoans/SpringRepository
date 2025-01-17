@@ -77,12 +77,13 @@ public class BoardController {
 	}
 
 	//삭제
-		@PostMapping("/remove")
-		public String remove(Long board, RedirectAttributes rttr) {
-			log.info("remove:" + board);
-			service.remove(board); 
-			
-			rttr.addFlashAttribute("result", true); //addFlashAttribute 딱한번 어럴트 보임
-			return "redirect:/board/list";
-		}
+	@GetMapping("/remove")
+	public String remove(Long bno, RedirectAttributes rttr) {
+		log.info("remove:" + bno);
+		service.remove(bno); 
+		
+		rttr.addFlashAttribute("result", true); //addFlashAttribute 딱한번 어럴트 보임
+		return "redirect:/board/list";
+	}
+	
 }
