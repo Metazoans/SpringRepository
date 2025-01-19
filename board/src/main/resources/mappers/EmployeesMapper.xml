@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.insa.mapper.EmployeesMapper">
+
+<!-- 사원 등록 -->
+<insert id="insert">
+INSERT INTO employees (
+       employee_id
+      ,first_name
+      ,last_name
+      ,email
+      ,hire_date
+      ,job_id
+      ,department_id
+)
+VALUES (
+      #{employeeId}
+      ,#{firstName}
+      ,#{lastName}
+      ,#{email}
+      ,#{hireDate}
+      ,#{jobId}
+      ,#{departmentId}
+)
+
+</insert>
+
+<!-- 전체 조회 -->
+
+
+
+<select id="getList" resultType="com.example.demo.insa.service.EmployeesDTO">
+SELECT *
+FROM (
+SELECT /*+index_desc(employees emp_id_pk)*/
+       ROWNUM RN
+      ,employee_id
+      ,first_name
+      ,last_name
+      ,email
+      ,phone_number
+      ,hire_date
+      ,e.job_id
+      ,job_title
+      ,salary
+      ,commission_pct
+      ,manager_id
+      ,department_id
+FROM employees e JOIN jobs j ON (e.job_id = j.job_id)
+<![CDATA[
+ WHERE ROWNUM <= #{end}
+]]>
+<include refid="criteria"></include>
+) WHERE RN >= #{start}
+</select>
+
+<!-- 카운트 -->
+<select id="getCount" resultType="int">
+SELECT COUNT(*)
+FROM employees e
+<where>
+  <include refid="criteria"></include>
+</where>
+</select>
+
+<sql id="criteria">
+  <if test="dept != null and !dept.equals('')">
+    AND department_id = #{dept}
+  </if>
+  <if test="job != null and !job.equals('')">
+    AND e.job_id = #{job}
+  </if>
+  <if test="name != null and !name.equals('')">
+    AND first_name LIKE '%' || #{name} || '%'
+  </if>
+</sql>
+
+<!-- 직업 전체 조회 -->
+<select id="getJobList" resultType="com.example.demo.insa.service.JobsDTO">
+SELECT *
+FROM jobs
+</select>
+
+</mapper>

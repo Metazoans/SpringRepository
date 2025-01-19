@@ -1,7 +1,5 @@
 package com.example.demo.insa.service;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeptDTO {
-	int departmentId;
-	String departmentName;
-	int managerId;
-	int locationId;
+public class JobsDTO {
+	private String jobId;
+	private String jobTitle;
+	private Long minSalary;
+	private Long maxSalary;
 }

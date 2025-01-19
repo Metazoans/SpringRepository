@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.insa.mapper.DeptMapper;
-import com.example.demo.insa.service.DeptDTO;
+import com.example.demo.insa.service.DepartmentDTO;
 import com.example.demo.insa.service.DeptSearchDTO;
 import com.example.demo.insa.service.DeptService;
 
@@ -17,12 +17,12 @@ public class DeptServiceImpl implements DeptService {
 	private final DeptMapper deptMapper;
 
 	@Override
-	public DeptDTO get(Long departmentId) {
+	public DepartmentDTO get(Long departmentId) {
 		return deptMapper.read(departmentId);
 	}
 
 	@Override
-	public List<DeptDTO> getList(DeptSearchDTO searchDTO) {
+	public List<DepartmentDTO> getList(DeptSearchDTO searchDTO) {
 		return deptMapper.getList(searchDTO);
 	}
 	

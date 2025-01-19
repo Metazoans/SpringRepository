@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.insa.mapper.EmployeesMapper;
+import com.example.demo.insa.service.EmployeeSearchDTO;
 import com.example.demo.insa.service.EmployeesDTO;
 import com.example.demo.insa.service.EmployeesService;
+import com.example.demo.insa.service.JobsDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +24,18 @@ public class EmployeesServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public List<EmployeesDTO> getList() {
-		return employeesMapper.getList();
+	public List<EmployeesDTO> getList(EmployeeSearchDTO searchDTO) {
+		return employeesMapper.getList(searchDTO);
+	}
+
+	@Override
+	public List<JobsDTO> getJobList() {
+		return employeesMapper.getJobList();
+	}
+
+	@Override
+	public int getCount(EmployeeSearchDTO searchDTO) {
+		return employeesMapper.getCount(searchDTO);
 	}
 
 }

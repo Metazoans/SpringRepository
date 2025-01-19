@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.insa.service.DeptDTO;
+import com.example.demo.insa.service.DepartmentDTO;
 import com.example.demo.insa.service.DeptService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class DeptServiceTest {
 	@Test
 	@DisplayName("부서 전체 조회")
 	void getList() {
-		List<DeptDTO> list = deptService.getList(null);
+		List<DepartmentDTO> list = deptService.getList(null);
 		
 		log.debug(list.toString());
 	}
@@ -29,7 +29,7 @@ public class DeptServiceTest {
 	@Test
 	@DisplayName("부서 단건 조회")
 	void get() {
-		DeptDTO dept = deptService.get(10L);
+		DepartmentDTO dept = deptService.get(10L);
 		
 		log.debug(dept.toString());
 	}

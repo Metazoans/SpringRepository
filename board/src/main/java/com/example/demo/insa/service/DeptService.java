@@ -3,6 +3,6 @@ package com.example.demo.insa.service;
 import java.util.List;
 
 public interface DeptService {
-	public DeptDTO get(Long departmentId);
-	public List<DeptDTO> getList(DeptSearchDTO searchDTO);
+	public DepartmentDTO get(Long departmentId);
+	public List<DepartmentDTO> getList(DeptSearchDTO searchDTO);
 }
