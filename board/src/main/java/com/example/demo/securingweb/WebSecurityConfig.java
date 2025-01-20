@@ -5,12 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,14 +21,16 @@ public class WebSecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/home").permitAll()
-				.requestMatchers("/admin").hasRole("ADMIN")
-				.anyRequest().authenticated()
+				.requestMatchers("/", "/main").permitAll()
+				.requestMatchers("/board/list").permitAll()
+				.requestMatchers("/board/*").authenticated()
+				.requestMatchers("/emp/*").hasRole("ADMIN")
+				.requestMatchers("/dept/*").hasRole("ADMIN")
+	            .requestMatchers("/css/**", "/js/**", "/images/**", "/layouts/**").permitAll()
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")
@@ -41,7 +39,6 @@ public class WebSecurityConfig {
 				.permitAll()
 			)
 			.logout((logout) -> logout.permitAll())
-//			.csrf(csrf -> csrf.disable())	//csrf 토큰 사용안하기
 			;
 
 		http.exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler()));
