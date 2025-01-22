@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header>
+		<ol>
+			<li><a href="book/register">도서등록</a></li>
+			<li><a href="book/list">도서목록조회/수정</a></li>
+			<li><a>대여현황조회</a></li>
+			<li><a href="/">홈으로</a></li>
+		</ol>
+
+	</header>
+
+	<main>
+		<div layout:fragment="content"></div>
+
+	</main>
+</body>
+</html>

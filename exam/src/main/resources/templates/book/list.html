@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="panel-heading">
+				<button type="button" id="btnRegister" class="btn btn-info">책 등록</button>
+			</div>
+			
+			<!-- 책 목록 시작 -->
+			<h2>책 목록</h2>
+			<table class="table text-center">
+				<thead>
+					<tr>
+						<th class="text-center">도서번호</th>
+						<th class="text-center">도서명</th>
+						<th class="text-center">표지</th>
+						<th class="text-center">출판일자</th>
+						<th class="text-center">금액</th>
+						<th class="text-center">출판사</th>
+						<th class="text-center">도서소개</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="book : ${bookList}">
+						<td class="text-center" th:text="${book.bookNo}">번호</td>
+						<td class="text-center" th:text="${book.bookName}">이름</td>
+						<td class="text-center">
+							<img th:src="|/images/${book.bookCoverimg}|">
+						</td>
+						<td class="text-center" th:text="${book.strDate}">일자</td>
+						<td class="text-center" th:text="${book.bookPrice}">금액</td>
+						<td class="text-center" th:text="${book.bookPublisher}">출판사</td>
+						<td class="text-center" th:text="${book.bookInfo}">소개</td>
+						
+					</tr>	
+				</tbody>
+			</table>
+			<!-- 책 목록 종료 -->
+			
+			
+		</div>
+	</div>
+		
+</div>
+
+</body>
+</html>
